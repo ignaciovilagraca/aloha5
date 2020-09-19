@@ -25,9 +25,9 @@ public class YourUnitTest extends BaseTest {
     @Test
     public void testCreateDirectory() {
         String[] expectedResults = {
-                "/testFolder\n",
+                "/testDirectory\n",
         };
-        runTest(expectedResults, "mkdir testFolder", "ls");
+        runTest(expectedResults, "mkdir testDirectory", "ls");
     }
 
     @Test
@@ -70,7 +70,7 @@ public class YourUnitTest extends BaseTest {
     }
 
     @Test
-    public void testCreateFolderWithNameTooLong() {
+    public void testCreateDirectoryWithNameTooLong() {
         String[] expectedResults = {
                 "Directory name cannot have more than 100 characters\n"
         };
