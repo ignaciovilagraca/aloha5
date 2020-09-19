@@ -110,6 +110,14 @@ public class YourUnitTest extends BaseTest {
     }
 
     @Test
+    public void testGoToNonexistentDirectory() {
+        String[] expectedResults = {
+                "Directory not found\n"
+        };
+        runTest(expectedResults, "cd sarasa");
+    }
+
+    @Test
     public void testRecursiveListContents() {
         String[] expectedResults = {
                 "/root\n",

@@ -26,13 +26,11 @@ public class CommandsFactory {
         inputs.forEach(input -> {
             String[] parsedInputs = input.split(" ");
 
-            Command command;
+            Command command = new UnrecognizedCommand();
             Class<?> c = commandsByString.getOrDefault(parsedInputs[0], UnrecognizedCommand.class);
             try {
                 command = (Command) c.getConstructor().newInstance();
-            } catch (Exception e) {
-                command = new UnrecognizedCommand();
-            }
+            } catch (Exception ignored) {}
 
             command.addParameters(parsedInputs);
             command.addRootDirectory(directory);
