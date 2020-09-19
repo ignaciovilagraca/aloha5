@@ -4,15 +4,20 @@ import com.salesforce.tests.fs.presenter.DirectoryPresenter;
 
 public class LsCommand extends DirectoryCommand {
 
+    private String[] parameters;
+
     @Override
     public void execute() {
-        new DirectoryPresenter().present(CURRENT_DIRECTORY);
+        DirectoryPresenter presenter = new DirectoryPresenter();
+        if(parameters.length > 1 && "-r".equals(parameters[1])) {
+            presenter.presentRecursively(CURRENT_DIRECTORY);
+        } else {
+            presenter.present(CURRENT_DIRECTORY);
+        }
     }
 
     @Override
     public void addParameters(String[] parameters) {
-
+        this.parameters = parameters;
     }
-
-
 }

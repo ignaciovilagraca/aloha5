@@ -10,9 +10,7 @@ import java.io.IOException;
 public class YourUnitTest extends BaseTest {
     @Test
     public void testQuit() throws IOException {
-        String[] expectedResults = {
-                ""
-        };
+        String[] expectedResults = {};
         runTest(expectedResults, "quit");
     }
 
@@ -50,6 +48,12 @@ public class YourUnitTest extends BaseTest {
     }
 
     @Test
+    public void testListContentsEmpty() {
+        String[] expectedResults = {};
+        runTest(expectedResults, "ls");
+    }
+
+    @Test
     public void testChangeDirectory() {
         String[] expectedResults = {
                 "test.bin\n"
@@ -79,5 +83,40 @@ public class YourUnitTest extends BaseTest {
                 "/root/usr/bin\n"
         };
         runTest(expectedResults, "mkdir usr", "cd usr", "mkdir bin", "cd bin", "pwd", "quit");
+    }
+
+    @Test
+    public void testCreateDirectoryAlreadyExists() {
+        String[] expectedResults = {
+                "Directory already exists\n"
+        };
+        runTest(expectedResults, "mkdir bin", "mkdir bin");
+    }
+
+    @Test
+    public void testGoToParentDirectory() {
+        String[] expectedResults = {
+                "/root\n"
+        };
+        runTest(expectedResults, "mkdir usr", "cd usr", "cd ..", "pwd", "quit");
+    }
+
+    @Test
+    public void testGoToParentDirectoryFromRoot() {
+        String[] expectedResults = {
+                "/root\n"
+        };
+        runTest(expectedResults, "cd ..", "pwd", "quit");
+    }
+
+    @Test
+    public void testRecursiveListContents() {
+        String[] expectedResults = {
+                "/root\n",
+                "project.iml\n",
+                "/root/bin\n",
+                "project.iml\n"
+        };
+        runTest(expectedResults, "mkdir bin", "touch project.iml", "cd bin", "touch project.iml", "cd ..", "ls -r");
     }
 }

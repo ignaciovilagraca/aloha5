@@ -9,4 +9,9 @@ public class DirectoryPresenter {
         List<String> outputs = directory.present();
         outputs.forEach(System.out::println);
     }
+
+    public void presentRecursively(Directory directory) {
+        List<String> outputs = directory.presentRecursively();
+        outputs.forEach(System.out::println);
+    }
 }

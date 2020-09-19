@@ -1,5 +1,6 @@
 package com.salesforce.tests.fs.model.directory;
 
+import com.salesforce.tests.fs.exception.DirectoryAlreadyExistsException;
 import com.salesforce.tests.fs.exception.DirectoryNotFoundException;
 
 import java.util.ArrayList;
@@ -23,6 +24,10 @@ public class Directory {
     }
 
     public void createDirectory(Directory directory) {
+        if (this.directories.stream().anyMatch(d -> d.name.equals(directory.name))) {
+            throw new DirectoryAlreadyExistsException();
+        }
+
         directory.parentDirectory = this;
         directories.add(directory);
     }
@@ -44,6 +49,18 @@ public class Directory {
     }
 
     public Directory findCurrentFolderOrThrowException(String newDirectory) {
-        return directories.stream().filter(d -> newDirectory.equals(d.name)).findAny().orElseThrow(DirectoryNotFoundException::new);
+        return "..".equals(newDirectory)
+                ? parentDirectory == null ? this : parentDirectory
+                : directories.stream().filter(d -> newDirectory.equals(d.name)).findAny().orElseThrow(DirectoryNotFoundException::new);
+    }
+
+    public List<String> presentRecursively() {
+        List<String> content = new ArrayList<>();
+        content.add(this.pathToRoot());
+        files.forEach(file -> content.add(file.toString()));
+        directories.forEach(folder -> {
+            content.addAll(folder.presentRecursively());
+        });
+        return content;
     }
 }
