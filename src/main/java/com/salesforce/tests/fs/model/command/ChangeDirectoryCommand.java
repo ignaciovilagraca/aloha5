@@ -8,7 +8,7 @@ public class ChangeDirectoryCommand extends DirectoryCommand {
     @Override
     public void execute() {
         try {
-            CURRENT_DIRECTORY = CURRENT_DIRECTORY.findCurrentFolderOrThrowException(parameters[1]);
+            CURRENT_DIRECTORY = CURRENT_DIRECTORY.updateCurrentDirectoryOrThrowException(parameters[1]);
         } catch (DirectoryNotFoundException e) {
             System.out.println("Directory not found");
         }

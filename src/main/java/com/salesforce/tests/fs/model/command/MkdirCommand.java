@@ -10,12 +10,12 @@ public class MkdirCommand extends DirectoryCommand {
 
     @Override
     public void execute() {
-        String folderName = parameters[1];
+        String directoryName = parameters[1];
 
         try {
-            new StringMaxLengthValidation().validate(folderName);
+            new StringMaxLengthValidation().validate(directoryName);
 
-            CURRENT_DIRECTORY.createDirectory(new Directory(folderName));
+            CURRENT_DIRECTORY.createDirectory(new Directory(directoryName));
         } catch (StringMaxLengthException e) {
             System.out.println("Directory name cannot have more than 100 characters");
         } catch (DirectoryAlreadyExistsException e) {

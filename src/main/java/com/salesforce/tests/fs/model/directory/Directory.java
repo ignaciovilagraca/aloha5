@@ -34,7 +34,7 @@ public class Directory {
 
     public List<String> present() {
         List<String> content = new ArrayList<>();
-        directories.forEach(folder -> content.add(folder.toString()));
+        directories.forEach(directory -> content.add(directory.toString()));
         files.forEach(file -> content.add(file.toString()));
         return content;
     }
@@ -48,7 +48,7 @@ public class Directory {
         return parentDirectory == null ? this.toString() : parentDirectory.pathToRoot() + this.toString();
     }
 
-    public Directory findCurrentFolderOrThrowException(String newDirectory) {
+    public Directory updateCurrentDirectoryOrThrowException(String newDirectory) {
         return "..".equals(newDirectory)
                 ? parentDirectory == null ? this : parentDirectory
                 : directories.stream().filter(d -> newDirectory.equals(d.name)).findAny().orElseThrow(DirectoryNotFoundException::new);
@@ -58,9 +58,7 @@ public class Directory {
         List<String> content = new ArrayList<>();
         content.add(this.pathToRoot());
         files.forEach(file -> content.add(file.toString()));
-        directories.forEach(folder -> {
-            content.addAll(folder.presentRecursively());
-        });
+        directories.forEach(directory -> content.addAll(directory.presentRecursively()));
         return content;
     }
 }
