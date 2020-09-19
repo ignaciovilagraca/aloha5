@@ -9,7 +9,7 @@ public class LsCommand extends DirectoryCommand {
     @Override
     public void execute() {
         DirectoryPresenter presenter = new DirectoryPresenter();
-        if(parameters.length > 1 && "-r".equals(parameters[1])) {
+        if (parameters.length > 1 && "-r".equals(parameters[1])) {
             presenter.presentRecursively(CURRENT_DIRECTORY);
         } else {
             presenter.present(CURRENT_DIRECTORY);

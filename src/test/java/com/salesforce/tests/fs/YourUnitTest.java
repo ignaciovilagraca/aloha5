@@ -27,7 +27,7 @@ public class YourUnitTest extends BaseTest {
         String[] expectedResults = {
                 "/testFolder\n",
         };
-        runTest(expectedResults, "mkdir testFolder","ls");
+        runTest(expectedResults, "mkdir testFolder", "ls");
     }
 
     @Test
