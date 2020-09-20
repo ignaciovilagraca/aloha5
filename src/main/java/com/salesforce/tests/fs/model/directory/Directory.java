@@ -49,9 +49,11 @@ public class Directory {
     }
 
     public Directory updateCurrentDirectoryOrThrowException(String newDirectory) {
-        return "..".equals(newDirectory)
-                ? parentDirectory == null ? this : parentDirectory
-                : directories.stream().filter(d -> newDirectory.equals(d.name)).findAny().orElseThrow(DirectoryNotFoundException::new);
+        return directories.stream().filter(d -> newDirectory.equals(d.name)).findAny().orElseThrow(DirectoryNotFoundException::new);
+    }
+
+    public Directory goToParentDirectory() {
+        return parentDirectory == null ? this : parentDirectory;
     }
 
     public List<String> presentRecursively() {
