@@ -48,11 +48,11 @@ public class Directory {
         return parentDirectory == null ? this.toString() : parentDirectory.pathToRoot() + this.toString();
     }
 
-    public Directory updateCurrentDirectoryOrThrowException(String newDirectory) {
+    public Directory getSubDirectoryOrThrowException(String newDirectory) {
         return directories.stream().filter(d -> newDirectory.equals(d.name)).findAny().orElseThrow(DirectoryNotFoundException::new);
     }
 
-    public Directory goToParentDirectory() {
+    public Directory getParentDirectory() {
         return parentDirectory == null ? this : parentDirectory;
     }
 

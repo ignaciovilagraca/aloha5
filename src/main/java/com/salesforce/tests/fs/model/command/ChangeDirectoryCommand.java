@@ -10,8 +10,8 @@ public class ChangeDirectoryCommand extends DirectoryCommand {
         try {
             String newDirectory = parameters[1];
             CURRENT_DIRECTORY = "..".equals(newDirectory)
-                    ? CURRENT_DIRECTORY.goToParentDirectory()
-                    : CURRENT_DIRECTORY.updateCurrentDirectoryOrThrowException(newDirectory);
+                    ? CURRENT_DIRECTORY.getParentDirectory()
+                    : CURRENT_DIRECTORY.getSubDirectoryOrThrowException(newDirectory);
         } catch (DirectoryNotFoundException e) {
             System.out.println("Directory not found");
         }
